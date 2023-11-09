@@ -1,23 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Header from './components/Header';
+//import ProductListPage from './components/ProductListPage';
+import {BrowserRouter,Routes,Route} from "react-router-dom";
+//import ProductDetailPage from './components/ProductDetailPage';
+import React, { Suspense } from 'react';
+import CartProvider from './context/cart.context';
+const ProductListPage = React.lazy(()=> import('./components/ProductListPage'));
+const ProductDetailPage = React.lazy(()=> import('./components/ProductDetailPage'));
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CartProvider>
+      {/* in header we need only read from cart */}
+      <Header/>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element = {<Suspense element={"Loading..."}><ProductListPage/></Suspense>}></Route>
+        <Route path="/product/:productId" element = {<Suspense element={"Loading..."}><ProductDetailPage/></Suspense>}></Route>
+      </Routes>
+      </BrowserRouter>
+      </CartProvider>
     </div>
   );
 }

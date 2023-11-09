@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+.basket-flyout {
+  width: 120px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 50px;
+  right: 30px;
+  background-color: #2874f0;
+  color: white;
+}
